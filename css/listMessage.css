@@ -1,0 +1,9 @@
+[data-role="messages"]{
+	width: 50%;
+	height: 50%;
+	margin-left: 50%;
+	position: relative;
+	top: -50%;
+	border-bottom: 1px inset;
+	overflow: auto;
+}

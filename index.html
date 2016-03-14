@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset = "utf-8">
+		<title>task_rss_reader</title>
+		<link rel="stylesheet" type="text/css" href="./css/index.css">
+		<link rel="stylesheet" type="text/css" href="./css/listChannel.css">
+		<link rel="stylesheet" type="text/css" href="./css/listMessage.css">
+		<link rel="stylesheet" type="text/css" href="./css/statistics.css">
+		<link rel="stylesheet" type="text/css" href="./css/reader.css">
+
+		<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+	</head>
+	<body>
+		<div class="container">
+			<div data-role="listChannels">
+				<div data-role="edit">
+					<input data-role="reNameChannel" placeholder="new name"/>
+					<button data-role="saveNewName">save</button>
+				</div>
+				<input type="text" data-role="linkToTheChannel" placeholder="link to the channel" />
+				<input type="text" data-role="nameChannel" placeholder="name channel" />
+				<button data-role="saveChannel">save</button>
+				<span class="textInfo"></span>
+				<ul class="listChannel"></ul>
+			</div>
+			<div data-role="messages">
+				listMessage
+				<ul class="listMessage"></ul>
+			</div>
+			<div data-role="statistics">statistics</div>
+			<div data-role="reader">
+				reader
+				<span data-role="closeNews">
+					<img src="./img/close_icon.png">
+				</span>
+			</div>
+		</div>
+
+		<script type="text/javascript" src="./js/storage.js"></script>
+		<script type="text/javascript" src="./js/pubsub.js"></script>
+		<script type="text/javascript" src="./blockListChannel.js"></script>
+		<script type="text/javascript" src="./js/index.js"></script>
+	</body>
+</html>
