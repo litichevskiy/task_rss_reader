@@ -20,26 +20,50 @@
 				</div>
 				<input type="text" data-role="linkToTheChannel" placeholder="link to the channel" />
 				<input type="text" data-role="nameChannel" placeholder="name channel" />
+				<div data-role="quantityNews">
+					<span class="quantity">quantity<span/>
+						<label>
+							<input type="radio" name="quantity" data-quantity="5" />
+							<span class="quantity select">5</span>
+						</label>
+						<label>
+							<input type="radio" name="quantity" data-quantity="10" checked  />
+							<span class="quantity select">10</span>
+						</label>
+						<label>
+							<input type="radio" name="quantity"data-quantity="20" />
+							<span class="quantity select">20</span>
+						</label>
+					</span>
+				</div>
 				<button data-role="saveChannel">save</button>
 				<span class="textInfo"></span>
 				<ul class="listChannel"></ul>
 			</div>
 			<div data-role="messages">
-				listMessage
+				<span class="close displayNone">
+					<img src="./img/close_icon.png">
+				</span>
+				<div class="titleChannel"></div>
 				<ul class="listMessage"></ul>
 			</div>
 			<div data-role="statistics">statistics</div>
 			<div data-role="reader">
-				reader
+				<div class="header">
+					<a class="link" target="_blank" href=""></a>
+				</div>
 				<span data-role="closeNews">
 					<img src="./img/close_icon.png">
 				</span>
+				<div class="content"></div>
 			</div>
 		</div>
 
 		<script type="text/javascript" src="./js/storage.js"></script>
 		<script type="text/javascript" src="./js/pubsub.js"></script>
 		<script type="text/javascript" src="./js/blockListChannel.js"></script>
+		<script type="text/javascript" src="./js/blockListMessage.js"></script>
+		<script type="text/javascript" src="./js/blockReader.js"></script>
 		<script type="text/javascript" src="./js/index.js"></script>
 	</body>
 </html>

@@ -7,3 +7,44 @@
 	border-bottom: 1px inset;
 	overflow: auto;
 }
+.listMessage{
+	list-style-type: none;
+	padding: 0;
+}
+.date{
+	color: grey;
+	font-size: small;
+}
+.title{
+	cursor: pointer;
+	border-radius: 5px;
+	padding: 0.3em 0 0.3em 0.5em;
+	color: #443232;
+	font-size: larger;
+}
+.title:hover{
+	background-color: #DDF2F9;
+}
+.itemMessage{
+	margin: 3px 0 0 10px;
+}
+.titleChannel{
+	font-size: 25px;
+	padding-left: 1em;
+	background-color: #E5F8FF;;
+	color: #4C5A67;
+}
+.close{
+	position: absolute;
+	top: 0;
+	right: 0;
+	padding: 4px 4px 0 4px;
+	border-radius: 5px;
+	background-color: lightblue;
+	margin: 2px 5px 0 0;
+	cursor: pointer;
+	transition: 0.5s linear;
+}
+.displayNone{
+	top: -2em;
+}

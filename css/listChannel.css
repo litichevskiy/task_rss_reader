@@ -18,7 +18,7 @@
 	margin-left: 0.5em;
 }
 [data-role="nameChannel"]{
-	width: 75%;
+	width: 50%;
 	display: inline-block;
 	margin-bottom: 1em;
 }
@@ -47,6 +47,10 @@
 	background-color: #EBF6FF;
 	transition: 0.5s linear;
 }
+[data-role="quantityNews"]{
+	display: inline;
+	position: relative;
+}
 [data-role="reNameChannel"]{
 	width: 95%;
 	margin: auto;
@@ -61,8 +65,20 @@
 	font-size: medium;
 }
 [data-role="saveNewName"]{
-	width: 95%;
+	width: 50%;
 	background-color: #EBF6FF;
+}
+button::-moz-focus-inner{
+	border:none;
+}
+.quantity{
+	color: grey;
+	font-size: small;
+}
+.select,
+[name="quantity"]{
+	cursor: pointer;
+	outline: none;
 }
 .textInfo{
 	position: absolute;

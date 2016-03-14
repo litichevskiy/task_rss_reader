@@ -10,6 +10,7 @@
 		CHECK_LINK = 'check link',
 		EDIT_NAME = 'editName'
 		KEYDOWN_ENTER = 13,
+		EDIT = false,
 		TIMER = 3000;
 
 	var inputLink = document.querySelector('[data-role="linkToTheChannel"]'),
@@ -88,7 +89,8 @@
 	}
 
 	function checkKey ( event ) {
-		if( event.keyCode === KEYDOWN_ENTER ) return checkLink();
+		if( event.keyCode === KEYDOWN_ENTER && EDIT === false ) return checkLink();
+		if( event.keyCode === KEYDOWN_ENTER && EDIT === true ) return saveNewName.click();
 	}
 
 	BlockChannels.prototype.createLink = function ( obj ) {
@@ -98,6 +100,7 @@
 	 	li.className = CURRENTCHANNEL;
 	 	li.dataset.name = obj.name;
 	 	li.dataset.link = obj.link;
+	 	li.dataset.quantity = obj.quantity;
 		div = document.createElement('div');
 		div.className = CHANNEL;
 		div.innerHTML = obj.name;
@@ -125,26 +128,37 @@
 
 
 	BlockChannels.prototype.updateName = (function( ) {
-		var parentTarget, childrenTarget;
+		var parentTarget, childrenTarget, _quantity, name;
 
 		return function ( target ) {
 
 			if ( typeof target !== 'string' ){
 				parentTarget = target.parentElement;
-				childrenTarget = parentTarget.querySelector('.channel'); //CHANNEL
+				childrenTarget = parentTarget.querySelector('.channel');
 				return;
 			}
 
-			if ( target === '' || target === parentTarget.dataset.name ) return;
+			if ( target === '' ) return;
 
-			theBlock.pubsub.publish( 'updateName', {
-				name 	: parentTarget.dataset.name,
-				newName : target
-			});
-			theBlock.allNamesChannel.deleteName( parentTarget.dataset.name );
-			theBlock.allNamesChannel.setName( target );
-			parentTarget.dataset.name = target;
-			childrenTarget.innerHTML = target;
+			debugger
+			name = inputRename.value;// parentTarget.dataset.name;
+			_quantity = document.querySelector('input:checked').dataset.quantity;
+			if ( name ==! parentTarget.dataset.name ||
+				_quantity !== parentTarget.dataset.quantity ) {
+
+				theBlock.pubsub.publish( 'updateName', {
+					name 	 : parentTarget.dataset.name,
+					newName  : target,
+					quantity : _quantity
+				});
+
+				theBlock.allNamesChannel.deleteName( parentTarget.dataset.name );
+				theBlock.allNamesChannel.setName( target );
+				parentTarget.dataset.name = target;
+				parentTarget.dataset.quantity = _quantity;
+				childrenTarget.innerHTML = target;
+				EDIT = false;
+			}
 		};
 
 	})();
@@ -153,7 +167,7 @@
 	function checkLink( ) {
 		var link = inputLink.value,
 			name = nameChannel.value,
-			checkName;
+			checkName, _quantity;
 
 		if ( !name ) return userInfo( NO_NAME );
 
@@ -165,36 +179,58 @@
 
 		getNews(link)
 		.then(function(response){
-
+			debugger
+			_quantity = document.querySelector('input:checked').dataset.quantity;
 			theBlock.addLinkInList([{
 				name : name,
-				link : link
+				link : link,
+				quantity : Number( _quantity )
 			}]);
 			theBlock.pubsub.publish('newLink', {
 				name : name,
-				link : link
+				link : link,
+				quantity : Number( _quantity )
 			});
 			clearInput( [inputLink, nameChannel] );
 		})
 		.catch(function(error){
-
+			debugger
 			clearInput( [inputLink] );
 			userInfo();
 		})
 	};
 
 	function checkClick( event ) {
-		var target = event.target;
+		var target = event.target,
+		link, quantity;
 
 		if ( target.classList.contains( DELETE_CHANNEL ) ) {
 			theBlock.removeteLink( target );
-		} else {
-			if ( target.classList.contains( EDIT_NAME ) ) {
+			return;
+		}
 
-				edit.style.top = '0';
-				inputRename.focus();
-				theBlock.updateName( target )
-			}
+		if ( target.classList.contains( EDIT_NAME ) ) {
+			edit.style.top = '0';
+			inputRename.focus();
+			inputRename.value = target.parentElement.dataset.name;
+			theBlock.updateName( target )
+			EDIT = true;
+			return;
+		}
+
+		if ( target.classList.contains( CHANNEL ) ) {
+			link = target.parentElement.dataset.link;
+			quantity = target.parentElement.dataset.quantity;
+
+			getNews( link, quantity )
+			.then(function(response){
+
+				theBlock.pubsub.publish( 'listNews', response );
+			})
+			.catch(function(error){
+				console.log( error )
+			})
+			return;
 		}
 	};
 
@@ -207,20 +243,22 @@
 	};
 
 
-	function getNews( link ) {
+	function getNews( link, quantity ) {
 
 		return new Promise(function(resolve, reject){
 			var feed = new google.feeds.Feed(link),
 				news = [];
+				if ( !quantity ) quantity = 1;
 
-      		feed.setNumEntries(1);
+      		feed.setNumEntries( quantity );
 
       		feed.load(function(result) {
         		if (!result.error) {
 
-          			for (var i = 0; i < result.feed.entries.length; i++) {
+          			// for (var i = 0; i < result.feed.entries.length; i++) {
+          				news.push(result.feed.entries);
           				news.push(result.feed);
-          			}
+          			// }
           			resolve(news);
         		}
         		else reject( CHECK_LINK );

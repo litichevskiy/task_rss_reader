@@ -42,6 +42,7 @@
 
 				index = _storageLinks[obj.name];
 				index.name = obj.newName
+				index.quantity = obj.quantity;
 				delete _storageLinks[obj.name];
 				_storageLinks[obj.newName] = index;
 
