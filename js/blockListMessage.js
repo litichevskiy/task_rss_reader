@@ -5,7 +5,6 @@
 		TIILE = 'title',
 		DATE = 'date',
 		DISPLAY = 'displayNone',
-		ACTIVE;
 		GET_DATE = /.+?:\d\d/gi;
 
 	var titleChannel = document.querySelector('.titleChannel'),
@@ -35,6 +34,7 @@
 		if ( target.tagName === 'DIV' ) {
 			id = target.parentElement.dataset.id;
 			news = storagePreview.getNews( id );
+
 			theBlock.pubsub.publish( 'showPreview', news );
 		}
 	};
@@ -104,7 +104,9 @@
 	function clearList( event ) {
 		theBlock.list.innerHTML = '';
 		titleChannel.innerHTML = '';
-		debugger
+
+		theBlock.pubsub.publish( 'clear' );
+
 		if ( event === undefined )  return;
 		else hideShowElem();
 	};

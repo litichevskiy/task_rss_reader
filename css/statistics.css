@@ -2,7 +2,36 @@
 	width: 50%;
 	height: 50%;
 	border-right: 1px inset;
-	overflow: auto;
-	position: relative;
-	top: -50%;
+	overflow-y: auto;
+	overflow-x: hidden;
+	position: absolute;
+	bottom: 0;
+}
+.statistics{
+	position: absolute;
+	left: 0;
+	width: 30%;
+	margin: 0;
+	list-style-type: none;
+	padding: 0;
+	display: inline-block;
+}
+.countChannels,
+.countMessages,
+.countAuthors{
+	background-color: #E5F8FF;
+    color: #4C5A67;
+    font-size: 20px;
+    border-radius: 5px;
+}
+.statistics li {
+	margin: 0.5em 0 0 0.5em;
+	padding-left: 1em;
+}
+.chart{
+	position: absolute;
+	right: 0;
+	top: 0.5em;
+	width: 65%;
+	height: 100%;
 }

@@ -33,6 +33,10 @@
 		closeNews.style.visibility = 'visible';
 		blockTop.style.height = '35%';
 		theBlock.block.style.height = '65%';
+
+		var text = theBlock.content.textContent;
+
+		theBlock.pubsub.publish('newText', text );
 	};
 
 	function clearContent () {

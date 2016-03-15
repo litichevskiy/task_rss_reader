@@ -27,6 +27,7 @@
 		pubsub    : pubsub
 	});
 
+
 	blockListMessage.pubsub.subscribe( 'listNews', blockListMessage.updateList );
 
 	var blockReader = new BlockReader({
@@ -36,6 +37,21 @@
 		pubsub    : pubsub
 	});
 
+
 	blockReader.pubsub.subscribe( 'showPreview', blockReader.updateContent );
+
+	var blockStatistics = new BlockStatistics({
+		container : document.querySelector('[data-role="statistics"]'),
+		list      : document.querySelector('.statistics'),
+		pubsub    : pubsub
+	});
+
+
+	blockStatistics.setCountChannels( listNames.length );
+	blockStatistics.pubsub.subscribe( 'newLink', blockStatistics.addCountChannels );
+	blockStatistics.pubsub.subscribe( 'deleteLink', blockStatistics.removeCountChannels );
+	blockStatistics.pubsub.subscribe( 'listNews', blockStatistics.countMessages );
+	blockStatistics.pubsub.subscribe( 'clear', blockStatistics.clearCount );
+	blockStatistics.pubsub.subscribe( 'newText', blockStatistics.checkLetters );
 
 })();

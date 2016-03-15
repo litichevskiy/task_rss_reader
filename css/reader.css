@@ -3,8 +3,8 @@
 	height: 50%;
 	margin-left: 50%;
 	overflow: auto;
-	position: relative;
-	top: -100%;
+	position: absolute;
+	bottom: 0;
 }
 [data-role="closeNews"]{
 	visibility: hidden;
@@ -23,7 +23,7 @@
 	font-size: larger;
 	color: #443030;
 	padding: 0.5em 0.5em 1em 0.5em;
-	margin-top: 1em;
+	margin-top: 2em;
 }
 .link{
 	position: absolute;
@@ -33,5 +33,4 @@
 	color: #4C5A67;
 	background-color: #E5F8FF;;
 	border-radius: 5px;
-	padding: 5px;
 }

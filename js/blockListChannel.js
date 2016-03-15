@@ -140,9 +140,9 @@
 
 			if ( target === '' ) return;
 
-			debugger
-			name = inputRename.value;// parentTarget.dataset.name;
+			name = inputRename.value;
 			_quantity = document.querySelector('input:checked').dataset.quantity;
+
 			if ( name ==! parentTarget.dataset.name ||
 				_quantity !== parentTarget.dataset.quantity ) {
 
@@ -179,7 +179,7 @@
 
 		getNews(link)
 		.then(function(response){
-			debugger
+
 			_quantity = document.querySelector('input:checked').dataset.quantity;
 			theBlock.addLinkInList([{
 				name : name,
@@ -194,7 +194,7 @@
 			clearInput( [inputLink, nameChannel] );
 		})
 		.catch(function(error){
-			debugger
+
 			clearInput( [inputLink] );
 			userInfo();
 		})
@@ -253,12 +253,12 @@
       		feed.setNumEntries( quantity );
 
       		feed.load(function(result) {
+
         		if (!result.error) {
 
-          			// for (var i = 0; i < result.feed.entries.length; i++) {
           				news.push(result.feed.entries);
           				news.push(result.feed);
-          			// }
+
           			resolve(news);
         		}
         		else reject( CHECK_LINK );
